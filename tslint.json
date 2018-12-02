@@ -25,7 +25,6 @@
     "no-increment-decrement": false,
 
     // TODO: For debugging only enable later on
-    "no-console": false,
-    "no-unused-variable": false
+    "no-console": false
   }
 }
