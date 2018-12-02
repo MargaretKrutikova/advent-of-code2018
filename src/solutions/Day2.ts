@@ -93,8 +93,8 @@ const solution = (input: string): Solution => {
   const ids = input.split("\n").map(id => id.trim())
 
   return {
-    part1: calculateTotalChecksum(ids),
-    part2: findCorrectIdsCommonLetters(ids)
+    part1: calculateTotalChecksum(ids), // 8296
+    part2: findCorrectIdsCommonLetters(ids) // pazvmqbftrbeosiecxlghkwud
   }
 }
 

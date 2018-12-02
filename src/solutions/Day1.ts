@@ -1,32 +1,59 @@
 import { Solution } from "src/DayX"
 
+// ----------------- PART 1 ------------------------------------------------
+
+const calcFrequency = (frequencyChanges: number[]) =>
+  frequencyChanges.reduce((acc, change) => acc + change, 0)
+
+// ----------------- PART 2 ------------------------------------------------
+
 type FrequencyState = {
   currentFrequency: number
   frequencesSeen: Set<number>
   frequencySeenTwice?: number
 }
 
-const findFirstFrequencySeenTwice = (
+const findFirstFrequencySeenTwice = (frequencyChanges: number[]) => {
+  const initialState: FrequencyState = {
+    currentFrequency: 0,
+    frequencesSeen: new Set()
+  }
+
+  return applyChangesUntilFirstFrequencySeenTwice(
+    initialState,
+    frequencyChanges
+  )
+}
+
+const applyChangeToFrequencyState = (
+  state: FrequencyState,
+  frequencyChange: number
+): FrequencyState => {
+  const { currentFrequency, frequencesSeen, frequencySeenTwice } = state
+  if (frequencySeenTwice) {
+    return state
+  }
+
+  const newFrequency = currentFrequency + frequencyChange
+  if (frequencesSeen.has(newFrequency)) {
+    return { ...state, frequencySeenTwice: newFrequency }
+  }
+
+  frequencesSeen.add(newFrequency)
+  return {
+    frequencesSeen,
+    currentFrequency: newFrequency
+  }
+}
+
+const applyChangesUntilFirstFrequencySeenTwice = (
   frequencyState: FrequencyState,
   frequencyChanges: number[]
 ): number => {
-  const newState = frequencyChanges.reduce<FrequencyState>((acc, change) => {
-    const { currentFrequency, frequencesSeen, frequencySeenTwice } = acc
-    if (frequencySeenTwice) {
-      return acc
-    }
-
-    const newFrequency = currentFrequency + change
-    if (frequencesSeen.has(newFrequency)) {
-      return { ...acc, frequencySeenTwice: newFrequency }
-    }
-
-    frequencesSeen.add(newFrequency)
-    return {
-      frequencesSeen,
-      currentFrequency: newFrequency
-    }
-  }, frequencyState)
+  const newState = frequencyChanges.reduce<FrequencyState>(
+    applyChangeToFrequencyState,
+    frequencyState
+  )
 
   if (newState.frequencySeenTwice) {
     return newState.frequencySeenTwice
@@ -34,8 +61,10 @@ const findFirstFrequencySeenTwice = (
 
   return newState.frequencySeenTwice
     ? newState.frequencySeenTwice
-    : findFirstFrequencySeenTwice(newState, frequencyChanges)
+    : applyChangesUntilFirstFrequencySeenTwice(newState, frequencyChanges)
 }
+
+// ----------------- ALL ------------------------------------------------
 
 const solution = (input: string): Solution => {
   const frequencyChanges = input
@@ -43,22 +72,10 @@ const solution = (input: string): Solution => {
     .filter(change => !!change)
     .map(change => parseInt(change.trim(), 10))
 
-  const resultingFrequency = frequencyChanges.reduce(
-    (acc, change) => acc + change,
-    0
-  )
-
-  const initialState: FrequencyState = {
-    currentFrequency: 0,
-    frequencesSeen: new Set()
+  return {
+    part1: calcFrequency(frequencyChanges), // 400
+    part2: findFirstFrequencySeenTwice(frequencyChanges) // 232
   }
-
-  const firstFrequencySeenTwice = findFirstFrequencySeenTwice(
-    initialState,
-    frequencyChanges
-  )
-
-  return { part1: resultingFrequency, part2: firstFrequencySeenTwice }
 }
 
 export default solution
