@@ -22,3 +22,10 @@ yarn-error.log*
 
 # inputs
 /src/inputs/*.txt
+
+# elm-package generated files
+elm/elm-stuff
+# elm-repl generated files
+elm/repl-temp-*
+
+elm/index.html
