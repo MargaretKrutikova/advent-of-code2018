@@ -3,7 +3,7 @@ import { Solution } from "src/DayX"
 import day1 from "./Day1"
 import day2 from "./Day2"
 import day3 from "./Day3"
-// import day4 from "./Day4"
+import day4 from "./Day4"
 // import day5 from "./Day5"
 // import day6 from "./Day6"
 // import day7 from "./Day7"
@@ -31,8 +31,8 @@ type SolutionFn = (input: string) => Solution
 const solutions: SolutionFn[] = [
   day1,
   day2,
-  day3
-  // day4,
+  day3,
+  day4
   // day5,
   // day6,
   // day7,
