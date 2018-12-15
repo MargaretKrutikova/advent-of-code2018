@@ -12,7 +12,7 @@ const App: React.SFC<{}> = () => (
     </p>
     <div>
       {Array.from(Array(25).keys()).map(day => (
-        <DayX dayNumber={day} />
+        <DayX dayNumber={day} key={day} />
       ))}
     </div>
   </div>

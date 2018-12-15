@@ -34,7 +34,7 @@ class DayX extends React.Component<Props, State> {
 
     return (
       <div>
-        <button onClick={this.solve}>Solve Day {dayNumber}</button>
+        <button onClick={this.solve}>Solve Day {dayNumber + 1}</button>
         {!solution ? (
           "Not solved yet!"
         ) : (
