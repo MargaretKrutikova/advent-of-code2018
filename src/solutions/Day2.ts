@@ -87,6 +87,34 @@ const findCorrectIdsCommonLetters = (ids: string[]): string | undefined => {
     : findCorrectIdsCommonLetters(ids.slice(1))
 }
 
+// -------------------------- FAST PART2 --------------------------------
+
+const findCommonLettersFast = (ids: string[]) => {
+  const length = ids.length
+  for (let i = 0; i < length - 1; i++) {
+    for (let j = i + 1; j < length; j++) {
+      const leftLetters = [...ids[i]]
+      const rightLetters = [...ids[j]]
+
+      const differentLetters = []
+      for (let n = 0; n < leftLetters.length; n++) {
+        if (differentLetters.length > 1) {
+          break
+        }
+        if (leftLetters[n] !== rightLetters[n]) {
+          differentLetters.push(leftLetters[n])
+        }
+      }
+
+      if (differentLetters.length === 1) {
+        return ids[i].replace(differentLetters[0], "")
+      }
+    }
+  }
+
+  return undefined
+}
+
 // ------------------------ ALL ------------------------------------------------
 
 const solution = (input: string): Solution => {
@@ -94,7 +122,7 @@ const solution = (input: string): Solution => {
 
   return {
     part1: calculateTotalChecksum(ids), // 8296
-    part2: findCorrectIdsCommonLetters(ids) // pazvmqbftrbeosiecxlghkwud
+    part2: findCommonLettersFast(ids) // pazvmqbftrbeosiecxlghkwud
   }
 }
 

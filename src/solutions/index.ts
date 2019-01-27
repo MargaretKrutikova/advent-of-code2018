@@ -9,9 +9,9 @@ import day6 from "./Day6"
 import day7 from "./Day7"
 import day8 from "./Day8"
 // import day9 from "./Day9"
-// import day10 from "./Day10"
-// import day11 from "./Day11"
-// import day12 from "./Day12"
+import day10 from "./Day10"
+import day11 from "./Day11"
+import day12 from "./Day12"
 // import day13 from "./Day13"
 // import day14 from "./Day14"
 // import day15 from "./Day15"
@@ -36,11 +36,12 @@ const solutions: SolutionFn[] = [
   day5,
   day6,
   day7,
-  day8
+  day8,
+  () => ({} as any),
   // day9,
-  // day10,
-  // day11,
-  // day12,
+  day10,
+  day11,
+  day12
   // day13,
   // day14,
   // day15,
